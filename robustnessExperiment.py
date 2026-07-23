@@ -12,6 +12,8 @@ from ProposedTransmitter import PhaseOverlayTransmitter
 from CABBATransmitter import CABBATransmitter
 from channel import PacketLossChannel
 from receiver import AuthenticationReceiver
+import csv
+import matplotlib.pyplot as plt
 
 
 def generate_adsb_messages(number):
@@ -146,6 +148,16 @@ def run_robustness_experiment():
             seed=1,
         )
 
+        row = {
+            "Loss Rate": loss_rate,
+            "Proposed ASR": proposed["success_rate"],
+            "CABBA ASR": cabba["success_rate"],
+            "Proposed Coverage": proposed["overall_coverage"],
+            "CABBA Coverage": cabba["overall_coverage"],
+        }
+
+        results.append(row)
+
         print(
             f"{loss_rate:8.0%} | "
             f"{proposed['success_rate']:.4f} | "
@@ -153,6 +165,49 @@ def run_robustness_experiment():
             f"{proposed['overall_coverage']:.4f} | "
             f"{cabba['overall_coverage']:.4f}"
         )
+
+    # Save CSV result
+    csv_file = "robustness_results.csv"
+    with open(csv_file, "w", newline="") as f:
+        writer = csv.DictWriter(f, fieldnames=results[0].keys())
+        writer.writeheader()
+        writer.writerows(results)
+
+    print(f"\\nCSV saved: {csv_file}")
+
+    loss = [r["Loss Rate"] for r in results]
+
+    # Figure 1: ASR comparison
+    plt.figure(figsize=(8, 5))
+    plt.plot(loss, [r["Proposed ASR"] for r in results],
+             marker="o", label="Proposed ASR")
+    plt.plot(loss, [r["CABBA ASR"] for r in results],
+             marker="s", label="CABBA ASR")
+    plt.xlabel("Loss Rate")
+    plt.ylabel("Authentication Success Rate (ASR)")
+    plt.title("ASR vs Packet Loss Rate")
+    plt.legend()
+    plt.grid(True)
+    plt.savefig("ASR_comparison.png", dpi=300, bbox_inches="tight")
+    plt.close()
+
+    # Figure 2: Coverage comparison
+    plt.figure(figsize=(8, 5))
+    plt.plot(loss, [r["Proposed Coverage"] for r in results],
+             marker="o", label="Proposed Coverage")
+    plt.plot(loss, [r["CABBA Coverage"] for r in results],
+             marker="s", label="CABBA Coverage")
+    plt.xlabel("Loss Rate")
+    plt.ylabel("Authentication Coverage")
+    plt.title("Coverage vs Packet Loss Rate")
+    plt.legend()
+    plt.grid(True)
+    plt.savefig("Coverage_comparison.png", dpi=300, bbox_inches="tight")
+    plt.close()
+
+    print("Figures saved:")
+    print(" - ASR_comparison.png")
+    print(" - Coverage_comparison.png")
 
 
 if __name__ == "__main__":

@@ -58,7 +58,7 @@ class AuthenticationReceiver:
             if packet.disclosed_key is not None:
                 self._receive_key(
                     packet.disclosed_key.key_id,
-                    receive_time
+                    key_receive_time=receive_time
                 )
 
 
@@ -74,7 +74,7 @@ class AuthenticationReceiver:
 
             self._receive_key(
                 packet.disclosed_key.key_id,
-                receive_time
+                key_receive_time=receive_time
             )
 
 
@@ -101,7 +101,7 @@ class AuthenticationReceiver:
         )
 
 
-    def _receive_key(self, key_id, receive_time):
+    def _receive_key(self, key_id, key_receive_time):
 
         if key_id not in self.pending_messages:
             return
@@ -114,9 +114,9 @@ class AuthenticationReceiver:
                 message_id=message.message_id,
                 adsb_hex=message.adsb_hex,
                 receive_time=message.receive_time,
-                authentication_time=receive_time,
+                authentication_time=key_receive_time,
                 authentication_delay=(
-                    receive_time -
+                    key_receive_time -
                     message.receive_time
                 )
             )

@@ -37,14 +37,17 @@ Research_project_simulator/
 ├── CABBATransmitter.py
 │   └── CABBA Type A and Type B packet transmitter
 │
+├── receiver.py
+│   └── Authentication receiver
+│
 ├── channel.py
 │   └── Packet loss channel simulator
 │
 ├── latencyExperiment.py
 │   └── Authentication latency evaluation experiment
 │
-└── receiver.py
-    └── Authentication receiver
+└── robustnessExperiment.py
+    └── Authentication robustness evalutaion experiment
 ```
 
 ---

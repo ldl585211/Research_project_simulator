@@ -6,7 +6,7 @@ Proposed scheme latency analysis experiment.
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from ProposedTransmitter import LCRATTransmitter
+from LCRATTransmitter import LCRATTransmitter
 from channel import PacketLossChannel
 from receiver import AuthenticationReceiver
 

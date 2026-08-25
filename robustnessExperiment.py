@@ -8,7 +8,7 @@ overall_coverage = authenticated/transmitted(in CABBA, type A only)
 '''
 
 from packet import CABBATypeA
-from ProposedTransmitter import LCRATTransmitter
+from LCRATTransmitter import LCRATTransmitter
 from CABBATransmitter import CABBATransmitter
 from channel import PacketLossChannel
 from receiver import AuthenticationReceiver

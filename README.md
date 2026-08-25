@@ -393,9 +393,9 @@ The TESLA key interval is configured as:
 key_interval = 5.0
 ```
 
-The evaluated packet loss rate is varied from 0 to 95% in increments of 5%
+The evaluated packet loss rates are 0% to 95% with an increment of 5%.
 
-All the above parameters can be adjusted by users according to their experimental requirements.
+All the above parameters can be modified by users according to their experimental requirements.
 
 ---
 
@@ -432,6 +432,198 @@ which shows the relationship between packet loss rate and authentication latency
 
 ---
 
+# Authentication Robustness Experiment
+
+File:
+
+```
+robustnessExperiment.py
+```
+
+This script evaluates authentication robustness of LCRAT and CABBA under different packet-loss conditions.
+
+Unlike the latency experiment, which focuses on authentication delay, this experiment evaluates whether ADS-B messages can still be successfully authenticated when packets are lost.
+
+The experiment measures:
+
+- Authentication Success Rate (ASR)
+- Overall Authentication Coverage
+
+---
+
+# Robustness Experiment Workflow
+
+```
+Generate ADS-B Messages
+
+        |
+        v
+
+LCRAT & CABBA Transmitter
+
+        |
+        v
+
+PacketLossChannel
+
+        |
+        v
+
+AuthenticationReceiver
+
+        |
+        v
+
+Robustness Evaluation
+```
+
+For each packet loss rate, LCRAT and CABBA are evaluated under identical channel conditions.
+
+---
+
+# Evaluation Metrics
+
+## Authentication Success Rate (ASR)
+
+The Authentication Success Rate represents the percentage of received packets that are successfully authenticated.
+
+For LCRAT:
+
+```
+ASR = authenticated messages / received packets
+```
+
+For CABBA:
+
+```
+ASR = authenticated messages / received Type A packets
+```
+
+Only Type A packets are considered for CABBA because they correspond directly to ADS-B message transmissions.
+
+---
+
+## Overall Authentication Coverage
+
+Overall Authentication Coverage represents the percentage of transmitted ADS-B messages that are successfully authenticated.
+
+```
+Overall Coverage = authenticated messages / transmitted ADS-B messages
+```
+
+This metric reflects the availability of authenticated surveillance information under packet-loss conditions.
+
+---
+
+# Robustness Experiment Configuration
+
+The robustness experiment uses the same configurable parameters as the latency experiment.
+
+Default ADS-B transmission rate:
+
+```python
+transmission_interval = 1/6
+```
+
+TESLA key interval:
+
+For LCRAT:
+
+```python
+key_interval = 5.0
+```
+
+For CABBA:
+
+```python
+type_b_interval = 5.0
+```
+
+The evaluated packet loss rates are 0% to 95% with an increment of 5%.
+
+All the above parameters can be modified by users according to their experimental requirements.
+
+---
+
+# Robustness Experiment Output
+
+The experiment generates:
+
+CSV result:
+
+```
+robustness_results.csv
+```
+
+The file contains:
+
+| Parameter | Description |
+|-|-|
+| Loss Rate | Packet loss probability |
+| LCRAT ASR | LCRAT authentication success rate |
+| CABBA ASR | CABBA authentication success rate |
+| LCRAT Coverage | LCRAT authentication coverage |
+| CABBA Coverage | CABBA authentication coverage |
+
+---
+
+Generated figures:
+
+## ASR Comparison
+
+Output:
+
+```
+ASR_comparison.png
+```
+
+This figure compares authentication success rate between LCRAT and CABBA.
+
+---
+
+## Coverage Comparison
+
+Output:
+
+```
+Coverage_comparison.png
+```
+
+This figure compares authentication coverage between LCRAT and CABBA.
+
+---
+
+# Running the Simulator
+
+## Run Latency Experiment
+
+```bash
+python latencyExperiment.py
+```
+
+---
+
+## Run Robustness Experiment
+
+```bash
+python robustnessExperiment.py
+```
+
+---
+
+The simulator will:
+
+1. Generate ADS-B messages
+2. Create authentication packets
+3. Apply packet loss
+4. Perform authentication processing
+5. Calculate performance metrics
+6. Save numerical results and figures
+
+---
+
+
+
 # Installation
 
 ## Requirements
@@ -441,25 +633,6 @@ Install required packages:
 ```bash
 pip install pandas matplotlib
 ```
-
----
-
-# Running the Experiment
-
-Run:
-
-```bash
-python latencyExperiment.py
-```
-
-The simulator will:
-
-1. Generate ADS-B messages
-2. Create LCRAT authentication packets
-3. Apply packet loss
-4. Perform authentication processing
-5. Calculate authentication latency
-6. Export results
 
 ---
 

@@ -85,18 +85,8 @@ The file defines the logical packet formats used by both LCRAT and CABBA.
 
 ## LCRAT Type A Packet
 
-The proposed LCRAT packet integrates message authentication and TESLA key disclosure into the same phase-overlay packet.
+The proposed LCRAT packet integrates message authentication code (MAC) and TESLA key disclosure into the same phase-overlay packet.
 
-The simulated fields are:
-
-```
-MAC                         32 bits
-Sequence Number              8 bits
-Previous Key Disclosure     128 bits
-Interval ID & Flags          12 bits
-Reserved / Trust Refresh     24 bits
-
-Total                       204 bits
 ```
 
 The corresponding data structure is:
@@ -108,9 +98,18 @@ LCRATTypeA
 It contains:
 
 - ADS-B message
-- Sequence number
-- Previous TESLA key disclosure
-- Authentication flags
+- Authentication information including MAC and Previous TESLA key disclosure
+
+The simulated Authentication information fields are:
+
+```
+MAC                         32 bits
+Sequence Number              8 bits
+Previous Key Disclosure     128 bits
+Interval ID & Flags          12 bits
+Reserved / Trust Refresh     24 bits
+
+Total                       204 bits
 
 ---
 

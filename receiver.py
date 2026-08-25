@@ -132,13 +132,13 @@ class AuthenticationReceiver:
 if __name__ == "__main__":
 
     '''
-    from transmitter import PhaseOverlayTransmitter
+    from transmitter import LCRATTransmitter
 
     messages = [
         "8D40621D58C382D690C8AC2863A7"
     ] * 25
 
-    tx = PhaseOverlayTransmitter(
+    tx = LCRATTransmitter(
         transmission_interval=0.5,
         key_interval_length=10
     )

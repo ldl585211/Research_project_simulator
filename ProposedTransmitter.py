@@ -23,7 +23,7 @@ Result:
 from packet import AuthMessage, KeyDisclosure, LCRATTypeA
 
 
-class PhaseOverlayTransmitter:
+class LCRATTransmitter:
 
     def __init__(
         self,
@@ -128,7 +128,7 @@ if __name__ == "__main__":
     ] * 45
 
 
-    tx = PhaseOverlayTransmitter(
+    tx = LCRATTransmitter(
         transmission_interval=0.5,
         key_interval=10.0,
     )

@@ -8,7 +8,7 @@ overall_coverage = authenticated/transmitted(in CABBA, type A only)
 '''
 
 from packet import CABBATypeA
-from ProposedTransmitter import PhaseOverlayTransmitter
+from ProposedTransmitter import LCRATTransmitter
 from CABBATransmitter import CABBATransmitter
 from channel import PacketLossChannel
 from receiver import AuthenticationReceiver
@@ -22,7 +22,7 @@ def generate_adsb_messages(number):
 
 def run_proposed_experiment(adsb_messages, loss_rate, seed=1):
 
-    tx = PhaseOverlayTransmitter(
+    tx = LCRATTransmitter(
         transmission_interval=1/6,   # 6 Hz
         key_interval=5.0,
     )

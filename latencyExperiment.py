@@ -6,7 +6,7 @@ Proposed scheme latency analysis experiment.
 import pandas as pd
 import matplotlib.pyplot as plt
 
-from ProposedTransmitter import PhaseOverlayTransmitter
+from ProposedTransmitter import LCRATTransmitter
 from channel import PacketLossChannel
 from receiver import AuthenticationReceiver
 
@@ -17,7 +17,7 @@ def generate_adsb_messages(number):
 
 def run_single_experiment(messages, loss_rate, seed=1):
 
-    tx = PhaseOverlayTransmitter(
+    tx = LCRATTransmitter(
     transmission_interval=1/6,   # 6 Hz
     key_interval=5.0,
 )

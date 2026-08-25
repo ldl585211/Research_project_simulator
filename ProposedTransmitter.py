@@ -20,7 +20,7 @@ Result:
     Message 20-39 -> Key 1
 """
 
-from packet import AuthMessage, KeyDisclosure, OverlayPacket
+from packet import AuthMessage, KeyDisclosure, LCRATTypeA
 
 
 class PhaseOverlayTransmitter:
@@ -55,7 +55,7 @@ class PhaseOverlayTransmitter:
         self,
         adsb_hex: str,
         packet_id: int,
-    ) -> OverlayPacket:
+    ) -> LCRATTypeA:
 
         send_time = packet_id * self.transmission_interval
 
@@ -90,7 +90,7 @@ class PhaseOverlayTransmitter:
             flags = 0
 
 
-        return OverlayPacket(
+        return LCRATTypeA(
             packet_id=packet_id,
             send_time=send_time,
             message=message,
@@ -104,7 +104,7 @@ class PhaseOverlayTransmitter:
     def transmit(
         self,
         adsb_messages: list[str],
-    ) -> list[OverlayPacket]:
+    ) -> list[LCRATTypeA]:
 
         packets = []
 

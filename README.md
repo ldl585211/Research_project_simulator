@@ -87,8 +87,6 @@ The file defines the logical packet formats used by both LCRAT and CABBA.
 
 The proposed LCRAT packet integrates message authentication code (MAC) and TESLA key disclosure into the same phase-overlay packet.
 
-```
-
 The corresponding data structure is:
 
 ```python
@@ -110,7 +108,7 @@ Interval ID & Flags          12 bits
 Reserved / Trust Refresh     24 bits
 
 Total                       204 bits
-
+```
 ---
 
 ## CABBA Packet Structures
@@ -121,17 +119,16 @@ CABBA uses two packet types.
 
 A Type A packet is transmitted together with every ADS-B message.
 
-It contains:
-
-- ADS-B message
-- Sequence number
-- MAC placeholder
-
 The corresponding structure is:
 
 ```python
 CABBATypeA
 ```
+
+It contains:
+
+- ADS-B message
+- MAC
 
 ---
 
@@ -388,11 +385,7 @@ The default experiment uses:
 transmission_interval = 1/6
 ```
 
-which corresponds to:
-
-```
-6 ADS-B messages per second
-```
+which corresponds to 6 ADS-B messages per second
 
 The TESLA key interval is configured as:
 
@@ -400,18 +393,9 @@ The TESLA key interval is configured as:
 key_interval = 5.0
 ```
 
----
+The evaluated packet loss rate is varied from 0 to 95% in increments of 5%
 
-The evaluated packet loss rates are:
-
-```
-0%
-5%
-10%
-15%
-...
-95%
-```
+All the above parameters can be adjusted by users according to their experimental requirements.
 
 ---
 
@@ -452,9 +436,6 @@ which shows the relationship between packet loss rate and authentication latency
 
 ## Requirements
 
-Python >= 3.10
-
-
 Install required packages:
 
 ```bash
@@ -487,9 +468,7 @@ The simulator will:
 The simulator focuses on packet-loss effects and therefore does not model:
 
 - Physical-layer modulation errors
-- Channel fading
 - Propagation delay
-- Doppler effects
 - Cryptographic computation time
 
 Instead, authentication completion is determined by the arrival time of the required TESLA key disclosure.

@@ -25,7 +25,7 @@ class KeyDisclosure:
 
 
 @dataclass(frozen=True)
-class OverlayPacket:
+class LCRATTypeA:
     """
     Proposed phase-overlay ADS-B packet.
 

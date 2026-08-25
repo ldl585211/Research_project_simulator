@@ -18,7 +18,7 @@ The simulator focuses on the impact of packet loss on authentication robustness 
 - Reproducible experiments using random seeds
 - Authentication latency evaluation under different packet-loss conditions
 - Automatic CSV result generation
-- Authentication latency visualization
+- Authentication visualization
 
 ---
 

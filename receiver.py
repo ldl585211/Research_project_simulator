@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from packet import OverlayPacket, CABBATypeA, CABBATypeB
+from packet import LCRATTypeA, CABBATypeA, CABBATypeB
 
 
 @dataclass
@@ -23,7 +23,7 @@ class AuthenticationResult:
 class AuthenticationReceiver:
     '''
     Unified receiver for:
-        - Proposed OverlayPacket
+        - Proposed LCRATTypeA
         - CABBATypeA
         - CABBATypeB
 
@@ -48,7 +48,7 @@ class AuthenticationReceiver:
             receive_time = packet.send_time
 
 
-        if isinstance(packet, OverlayPacket):
+        if isinstance(packet, LCRATTypeA):
 
             self._receive_message(
                 packet.message,

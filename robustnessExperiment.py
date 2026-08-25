@@ -20,7 +20,7 @@ def generate_adsb_messages(number):
     return ["8D40621D58C382D690C8AC2863A7"] * number
 
 
-def run_proposed_experiment(adsb_messages, loss_rate, seed=1):
+def run_lcrat_experiment(adsb_messages, loss_rate, seed=1):
 
     tx = LCRATTransmitter(
         transmission_interval=1/6,   # 6 Hz
@@ -140,14 +140,14 @@ def run_robustness_experiment():
 
     print(
         "Loss Rate | "
-        "Proposed ASR | CABBA ASR |"
-        " Proposed Coverage | CABBA Coverage"
+        "LCRAT ASR | CABBA ASR |"
+        " LCRAT Coverage | CABBA Coverage"
     )
     print("-" * 90)
 
     for loss_rate in loss_rates:
 
-        proposed = run_proposed_experiment(
+        lcrat = run_lcrat_experiment(
             adsb_messages,
             loss_rate,
             seed=1,
@@ -161,9 +161,9 @@ def run_robustness_experiment():
 
         row = {
             "Loss Rate": loss_rate,
-            "Proposed ASR": proposed["success_rate"],
+            "LCRAT ASR": lcrat["success_rate"],
             "CABBA ASR": cabba["success_rate"],
-            "Proposed Coverage": proposed["overall_coverage"],
+            "LCRAT Coverage": lcrat["overall_coverage"],
             "CABBA Coverage": cabba["overall_coverage"],
         }
 
@@ -171,9 +171,9 @@ def run_robustness_experiment():
 
         print(
             f"{loss_rate:8.0%} | "
-            f"{proposed['success_rate']:.4f} | "
+            f"{lcrat['success_rate']:.4f} | "
             f"{cabba['success_rate']:.4f} | "
-            f"{proposed['overall_coverage']:.4f} | "
+            f"{lcrat['overall_coverage']:.4f} | "
             f"{cabba['overall_coverage']:.4f}"
         )
 
@@ -193,9 +193,9 @@ def run_robustness_experiment():
 
     plt.plot(
         loss,
-        [r["Proposed ASR"] for r in results],
+        [r["LCRAT ASR"] for r in results],
         marker="o",
-        label="Proposed ASR"
+        label="LCRAT ASR"
     )
 
     plt.plot(
@@ -236,9 +236,9 @@ def run_robustness_experiment():
 
     plt.plot(
         loss,
-        [r["Proposed Coverage"] for r in results],
+        [r["LCRAT Coverage"] for r in results],
         marker="o",
-        label="Proposed Coverage"
+        label="LCRAT Coverage"
     )
 
     plt.plot(

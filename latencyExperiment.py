@@ -1,6 +1,6 @@
 
 """
-Proposed scheme latency analysis experiment.
+LCRAT scheme latency analysis experiment.
 """
 
 import pandas as pd

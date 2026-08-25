@@ -1,6 +1,6 @@
 
 """
-Proposed ADS-B Phase Overlay Transmitter
+LCRAT ADS-B Phase Overlay Transmitter
 
 Key interval is defined in absolute time (seconds).
 

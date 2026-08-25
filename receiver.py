@@ -23,7 +23,7 @@ class AuthenticationResult:
 class AuthenticationReceiver:
     '''
     Unified receiver for:
-        - Proposed LCRATTypeA
+        - LCRATTypeA
         - CABBATypeA
         - CABBATypeB
 

@@ -27,7 +27,7 @@ class KeyDisclosure:
 @dataclass(frozen=True)
 class LCRATTypeA:
     """
-    Proposed phase-overlay ADS-B packet.
+    LCRAT phase-overlay ADS-B packet.
 
     Overlay fields:
         MAC                         32 bits

@@ -5,35 +5,6 @@ This module implements the transmitter-side packet generation process for
 the Compatible Authenticated Bandwidth-efficient Broadcast for ADS-B (CABBA)
 scheme.
 
-Key interval is defined in absolute time (seconds).
-
-Parameters:
-
-    transmission_interval:
-        ADS-B message transmission interval (seconds)
-
-    type_b_interval:
-        Type B1 key disclosure interval (seconds)
-
-Example:
-
-    transmission_interval = 0.5 s
-    type_b_interval = 10 s
-
-
-    Type A:
-        t=0.0
-        t=0.5
-        t=1.0
-        ...
-
-
-    Type B1:
-        t=10
-        t=20
-        t=30
-        ...
-
 This transmitter follows the packet structures defined in packet.py:
 
     Type A:
@@ -66,6 +37,37 @@ class CABBATransmitter:
         type_b_interval: float = 10.0,
     ):
 
+    """
+    Key interval is defined in absolute time (seconds).
+
+    Parameters:
+
+        transmission_interval:
+            ADS-B message transmission interval (seconds)
+
+        type_b_interval:
+            Type B1 key disclosure interval (seconds)
+
+    Example:
+
+        transmission_interval = 0.5 s
+        type_b_interval = 10 s
+
+
+        Type A:
+            t=0.0
+            t=0.5
+            t=1.0
+            ...
+
+
+        Type B1:
+            t=10
+            t=20
+            t=30
+            ...
+    """
+
         self.transmission_interval = transmission_interval
         self.type_b_interval = type_b_interval
 
@@ -75,6 +77,10 @@ class CABBATransmitter:
         self,
         packet_id: int,
     ) -> int:
+
+        """
+        Return the authentication key ID required by an ADS-B packet.
+        """
 
         send_time = (
             packet_id *
@@ -102,11 +108,12 @@ class CABBATransmitter:
             self.transmission_interval
         )
 
+        # Identify the TESLA key required to authenticate this message.
         required_key_id = self.get_key_id(
             packet_id
         )
 
-
+        # Create the logical ADS-B authentication message.
         message = AuthMessage(
 
             message_id=packet_id,
@@ -149,6 +156,8 @@ class CABBATransmitter:
             self.type_b_interval
         )
 
+        # The Type B1 packet discloses the key used during the
+        # immediately preceding authentication interval.
         disclosed_key_id = (
             disclosure_id - 1
         )
@@ -173,7 +182,19 @@ class CABBATransmitter:
         """
         Generate all CABBA Type A and Type B1 packets.
 
+        One Type A packet is created for every ADS-B message. Additional
+        Type B1 packets are generated according to the configured disclosure
+        interval.
+
         The returned packets are sorted by transmission time.
+
+        Args:
+            adsb_messages:
+                List of ADS-B messages represented as hexadecimal strings.
+
+        Returns:
+            list:
+                Chronologically ordered CABBA Type A and Type B packets.
         """
 
         packets = []
@@ -197,12 +218,13 @@ class CABBATransmitter:
             self.transmission_interval
         )
 
-
+        # Determine how many Type B1 disclosure events occur
+        # during the simulated transmission period.
         number_of_type_b = int(
             total_time / self.type_b_interval
         )
 
-
+        # Generate periodic Type B key-disclosure packets.
         for disclosure_id in range(
             1,
             number_of_type_b + 1
@@ -225,6 +247,10 @@ class CABBATransmitter:
 
 
 if __name__ == "__main__":
+
+    """
+    Simple standalone test.
+    """
 
     messages = [
         "8D40621D58C382D690C8AC2863A7"

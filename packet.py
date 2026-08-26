@@ -7,8 +7,7 @@ class AuthMessage:
     send_time: float
     adsb_hex: str
 
-    #MAC field placeholder
-    mac: int
+    # mac: int
 
     # Key interval ID required for authentication
     required_key_id: int

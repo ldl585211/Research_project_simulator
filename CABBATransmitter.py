@@ -111,7 +111,7 @@ class CABBATransmitter:
             adsb_hex=adsb_hex,
 
             # 196-bit MAC placeholder
-            mac=packet_id,
+        #    mac=packet_id,
 
             required_key_id=required_key_id,
         )

@@ -68,7 +68,7 @@ class LCRATTransmitter:
             message_id=packet_id,
             send_time=send_time,
             adsb_hex=adsb_hex,
-            mac=packet_id,
+        #    mac=packet_id,
             required_key_id=current_key_id,
         )
 

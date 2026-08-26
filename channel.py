@@ -5,9 +5,6 @@ Assumption:
     - No propagation delay.
     - No physical layer errors.
     - Packet either arrives immediately or is lost.
-
-The only parameter:
-    loss_rate
 """
 
 
@@ -59,7 +56,9 @@ class PacketLossChannel:
         self.total_packets += 1
 
 
-        # packet loss event
+        # Simulate a packet-loss event.
+        # The packet is lost when the generated random value is smaller
+        # than the configured packet-loss probability.
         if self.random.random() < self.loss_rate:
 
             self.lost_packets += 1
@@ -99,6 +98,7 @@ class PacketLossChannel:
 
     def packet_loss_rate(self):
 
+        #Calculate the observed packet-loss rate.
         if self.total_packets == 0:
             return 0
 
@@ -111,6 +111,9 @@ class PacketLossChannel:
 
 
 if __name__ == "__main__":
+    """
+    Simple standalone test.
+    """
 
     class DummyPacket:
         pass

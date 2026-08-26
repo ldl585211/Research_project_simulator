@@ -598,7 +598,7 @@ This figure compares authentication coverage between LCRAT and CABBA.
 ## Run Latency Experiment
 
 ```bash
-python latencyExperiment.py
+py latencyExperiment.py
 ```
 
 ---
@@ -606,7 +606,7 @@ python latencyExperiment.py
 ## Run Robustness Experiment
 
 ```bash
-python robustnessExperiment.py
+py robustnessExperiment.py
 ```
 
 ---

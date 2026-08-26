@@ -101,7 +101,7 @@ class CABBATypeA:
 @dataclass(frozen=True)
 class CABBATypeB:
     """
-    CABBA Type B packet.
+    CABBA Type B1 packet.
 
     Sent periodically and contains key disclosure information.
 

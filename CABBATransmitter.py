@@ -1,6 +1,38 @@
-
 """
 CABBA transmitter simulator.
+
+This module implements the transmitter-side packet generation process for
+the Compatible Authenticated Bandwidth-efficient Broadcast for ADS-B (CABBA)
+scheme.
+
+Key interval is defined in absolute time (seconds).
+
+Parameters:
+
+    transmission_interval:
+        ADS-B message transmission interval (seconds)
+
+    type_b_interval:
+        Type B1 key disclosure interval (seconds)
+
+Example:
+
+    transmission_interval = 0.5 s
+    type_b_interval = 10 s
+
+
+    Type A:
+        t=0.0
+        t=0.5
+        t=1.0
+        ...
+
+
+    Type B1:
+        t=10
+        t=20
+        t=30
+        ...
 
 This transmitter follows the packet structures defined in packet.py:
 
@@ -10,7 +42,7 @@ This transmitter follows the packet structures defined in packet.py:
         - Contains 8-bit sequence number
         - Uses a 196-bit MAC placeholder
 
-    Type B:
+    Type B1:
         - Sent periodically
         - Contains key disclosure information
 """
@@ -25,34 +57,7 @@ from packet import (
 
 class CABBATransmitter:
     """
-    CABBA transmitter.
-
-    Parameters:
-
-        transmission_interval:
-            ADS-B message transmission interval (seconds)
-
-        type_b_interval:
-            Type B key disclosure interval (seconds)
-
-    Example:
-
-        transmission_interval = 0.5 s
-        type_b_interval = 10 s
-
-
-        Type A:
-            t=0.0
-            t=0.5
-            t=1.0
-            ...
-
-
-        Type B:
-            t=10
-            t=20
-            t=30
-            ...
+    Generate CABBA packets from ADS-B messages.
     """
 
     def __init__(
@@ -133,9 +138,9 @@ class CABBATransmitter:
     ) -> CABBATypeB:
         
         """
-        Create one CABBA Type B packet.
+        Create one CABBA Type B1 packet.
 
-        Type B discloses the key required for messages
+        Type B1 discloses the key required for messages
         from the previous authentication interval.
         """
 
@@ -166,7 +171,7 @@ class CABBATransmitter:
         adsb_messages: list[str],
     ):
         """
-        Generate all CABBA Type A and Type B packets.
+        Generate all CABBA Type A and Type B1 packets.
 
         The returned packets are sorted by transmission time.
         """
@@ -185,7 +190,7 @@ class CABBATransmitter:
             )
 
 
-        # Generate enough Type B packets to cover the dataset
+        # Generate enough Type B1 packets to cover the dataset
         total_time = (
             len(adsb_messages)
             *
@@ -250,7 +255,7 @@ if __name__ == "__main__":
         else:
 
             print(
-                f"Type B | "
+                f"Type B1 | "
                 f"t={packet.send_time:.1f}s | "
                 f"discloses K{packet.key_id}"
             )

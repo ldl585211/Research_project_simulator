@@ -35,7 +35,7 @@ Research_project_simulator/
 │   └── LCRAT Type A packet transmitter
 │
 ├── CABBATransmitter.py
-│   └── CABBA Type A and Type B packet transmitter
+│   └── CABBA Type A and Type B1 packet transmitter
 │
 ├── receiver.py
 │   └── Authentication receiver
@@ -132,9 +132,9 @@ It contains:
 
 ---
 
-### CABBA Type B
+### CABBA Type B1
 
-A Type B packet is periodically transmitted for TESLA key disclosure.
+A Type B1 packet is periodically transmitted for TESLA key disclosure.
 
 The corresponding structure is:
 
@@ -238,14 +238,14 @@ ADS-B message transmission period.
 
 ## type_b_interval
 
-Interval for transmitting CABBA Type B key disclosure packets.
+Interval for transmitting CABBA Type B1 key disclosure packets.
 
 ---
 
 The transmitter generates:
 
 - Type A packets for every ADS-B message
-- Type B packets periodically
+- Type B1 packets periodically
 
 The generated packets are sorted according to transmission time.
 

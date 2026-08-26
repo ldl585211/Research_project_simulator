@@ -37,36 +37,36 @@ class CABBATransmitter:
         type_b_interval: float = 10.0,
     ):
 
-    """
-    Key interval is defined in absolute time (seconds).
+        """
+        Key interval is defined in absolute time (seconds).
 
-    Parameters:
+        Parameters:
 
-        transmission_interval:
-            ADS-B message transmission interval (seconds)
+            transmission_interval:
+                ADS-B message transmission interval (seconds)
 
-        type_b_interval:
-            Type B1 key disclosure interval (seconds)
+            type_b_interval:
+                Type B1 key disclosure interval (seconds)
 
-    Example:
+        Example:
 
-        transmission_interval = 0.5 s
-        type_b_interval = 10 s
-
-
-        Type A:
-            t=0.0
-            t=0.5
-            t=1.0
-            ...
+            transmission_interval = 0.5 s
+            type_b_interval = 10 s
 
 
-        Type B1:
-            t=10
-            t=20
-            t=30
-            ...
-    """
+            Type A:
+                t=0.0
+                t=0.5
+                t=1.0
+                ...
+
+
+            Type B1:
+                t=10
+                t=20
+                t=30
+                ...
+        """
 
         self.transmission_interval = transmission_interval
         self.type_b_interval = type_b_interval

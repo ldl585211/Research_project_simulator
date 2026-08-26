@@ -1,13 +1,30 @@
+"""
+This module defines the logical packet formats shared by the LCRAT and
+CABBA simulation components. 
+
+They represent the authentication-related information required by the 
+packet-level simulator, such as key identifiers, sequence numbers and 
+TESLA key disclosure information.
+
+The packet structures are used by the transmitters, packet-loss channel,
+and authentication receiver
+
+"""
+
+
 from dataclasses import dataclass
 
 
 @dataclass(frozen=True)
 class AuthMessage:
+    """
+    Logical representation of an ADS-B message.
+    Each message records the send time and TESLA key interval
+    required for successful authentication.
+    """
     message_id: int
     send_time: float
     adsb_hex: str
-
-    # mac: int
 
     # Key interval ID required for authentication
     required_key_id: int
@@ -15,7 +32,11 @@ class AuthMessage:
 
 @dataclass(frozen=True)
 class KeyDisclosure:
-    """Logical identity of a disclosed key."""
+    """
+    Logical identity of a disclosed key.
+    Only the key identifier is required by the packet-level simulator.
+    Actual cryptographic key values are not generated or verified.
+    """
 
     key_id: int
 
@@ -29,7 +50,7 @@ class LCRATTypeA:
     LCRAT phase-overlay ADS-B packet.
 
     Overlay fields:
-        MAC                         32 bits
+        MAC                         32 bits (placeholder)
         Sequence Number              8 bits
         Previous Key Disclosure     128 bits
         Interval ID & Flags          12 bits

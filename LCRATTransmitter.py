@@ -20,24 +20,24 @@ class LCRATTransmitter:
         key_interval: float = 10.0,
     ):
 
-    '''
-    Key interval is defined in absolute time (seconds).
+        """
+        Key interval is defined in absolute time (seconds).
 
-    Parameters:
-        transmission_interval:
-            ADS-B message transmission period.
+        Parameters:
+            transmission_interval:
+                ADS-B message transmission period.
 
-        key_interval:
-            Authentication key interval duration.
+            key_interval:
+                Authentication key interval duration.
 
-    Example:
-        transmission_interval = 0.5 s
-        key_interval = 10 s
+        Example:
+            transmission_interval = 0.5 s
+            key_interval = 10 s
 
-    Result:
-        Message 0-19  -> Key 0
-        Message 20-39 -> Key 1
-    '''
+        Result:
+            Message 0-19  -> Key 0
+            Message 20-39 -> Key 1
+        """
     
         self.transmission_interval = transmission_interval
         self.key_interval = key_interval
